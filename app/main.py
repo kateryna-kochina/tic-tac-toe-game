@@ -8,11 +8,26 @@ current_player = 'X'
 while game_on:
     print_board(board)
 
-    # Get player input
-    row = int(
-        input(f'Player {current_player}, please enter row number: 1, 2, or 3: ')) - 1
-    column = int(
-        input(f'Player {current_player}, please enter column number: 1, 2, or 3: ')) - 1
+    # Get player input with error handling and loop for invalid input
+    while True:
+        try:
+            row = int(
+                input(f'Player {current_player}, please enter row number: 1, 2, or 3: ')) - 1
+            column = int(
+                input(f'Player {current_player}, please enter column number: 1, 2, or 3: ')) - 1
+
+            # Check if the entered row and column values are within the valid range
+            if not (0 <= row < 3 and 0 <= column < 3):
+                raise ValueError(
+                    "Row and column values must be between 1 and 3.")
+            break
+
+        except ValueError as e:
+            print(f"Invalid input: {e}")
+
+        except IndexError:
+            print("Invalid input: Row and column values must be between 1 and 3.")
+            
 
     if board[row][column] == ' ':
 
