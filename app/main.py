@@ -1,5 +1,6 @@
-from game_utils import print_board, is_winner, is_full_board
-
+from tic_tac_toe_game import (get_player_input, is_full_board, is_valid_input,
+                              is_winner, print_board, switch_player,
+                              update_board)
 
 game_on = True
 board = [[' ' for _ in range(3)] for _ in range(3)]
@@ -8,31 +9,11 @@ current_player = 'X'
 while game_on:
     print_board(board)
 
-    # Get player input with error handling and loop for invalid input
-    while True:
-        try:
-            row = int(
-                input(f'Player {current_player}, please enter row number: 1, 2, or 3: ')) - 1
-            column = int(
-                input(f'Player {current_player}, please enter column number: 1, 2, or 3: ')) - 1
+    # Get and validate player input
+    row, column = get_player_input(board, current_player)
 
-            # Check if the entered row and column values are within the valid range
-            if not (0 <= row < 3 and 0 <= column < 3):
-                raise ValueError(
-                    "Row and column values must be between 1 and 3.")
-            break
-
-        except ValueError as e:
-            print(f"Invalid input: {e}")
-
-        except IndexError:
-            print("Invalid input: Row and column values must be between 1 and 3.")
-            
-
-    if board[row][column] == ' ':
-
-        # Update the board with the current player's symbol
-        board[row][column] = current_player
+    # Update the board with the current player's symbol
+    if update_board(board, row, column, current_player):
 
         # Check if the current player is a winner
         if is_winner(board):
@@ -41,16 +22,10 @@ while game_on:
             game_on = False
 
         # Check if the board is full, resulting in a tie
-        if is_full_board(board):
+        elif is_full_board(board):
             print_board(board)
             print(f'It\'s a tie!')
             game_on = False
 
         # Switch to the other player for the next turn
-        if current_player == 'X':
-            current_player = 'O'
-        else:
-            current_player = 'X'
-
-    else:
-        print('Cell is already taken, please select another one.')
+        current_player = switch_player(current_player)

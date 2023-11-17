@@ -4,7 +4,7 @@ This is a simple command-line implementation of the classic Tic-Tac-Toe game in 
 
 ## How to Play
 
-Run the main.py file.
+Run the tic_tac_toe_game.py file.
 Players take turns entering their moves by specifying the row and column numbers (both ranging from 1 to 3).
 The game continues until a player wins or the board is full, resulting in a tie.
 
@@ -17,7 +17,7 @@ If the board is full and no winner is determined, the game ends in a tie.
 
 ## Code Structure
 
-The main game logic is implemented in the main.py file. It uses functions from game_utils.py for printing the board, checking for a winner, and determining if the board is full.
+The main game logic is implemented in the tic_tac_toe_game.py file. It uses functions from game_utils.py for printing the board, checking for a winner, and determining if the board is full.
 
 ## How to Run Tests
 
