@@ -26,18 +26,16 @@ def get_player_input(board, current_player):
     tuple: A tuple containing the selected row and column on the board.
     '''
     while True:
-        try:
-            row = int(
-                input(f'Player {current_player}, please enter row number: 1, 2, or 3: ')) - 1
-            column = int(
-                input(f'Player {current_player}, please enter column number: 1, 2, or 3: ')) - 1
+        row = input(
+            f'Player {current_player}, please enter row number: 1, 2, or 3: ')
+        column = input(
+            f'Player {current_player}, please enter column number: 1, 2, or 3: ')
 
-            # Validate the input
-            if is_valid_input(board, row, column):
-                return row, column
-
-        except ValueError as e:
-            print(f'Invalid input: {e}.')
+        # Validate input
+        if is_valid_input(board, row, column):
+            row = int(row) - 1
+            column = int(column) - 1
+            return row, column
 
 
 def is_valid_input(board, row, column):
@@ -53,12 +51,24 @@ def is_valid_input(board, row, column):
     Returns:
     bool: True if the input is valid, False otherwise.
     '''
-    if not (0 <= row < 3 and 0 <= column < 3):
-        print('Row and column values must be between 1 and 3.')
+    try:
+        row = int(row) - 1
+        column = int(column) - 1
+
+        if not (0 <= row < 3 and 0 <= column < 3):
+            print('Row and column values must be between 1 and 3.')
+            return False
+
+        if board[row][column] != ' ':
+            print('Cell is already taken, please select another one.')
+            return False
+
+    except ValueError:
+        print('Invalid input, please enter a proper value.')
         return False
 
-    if board[row][column] != ' ':
-        print('Cell is already taken, please select another one.')
+    except TypeError:
+        print('Invalid input, please enter a proper value.')
         return False
 
     return True

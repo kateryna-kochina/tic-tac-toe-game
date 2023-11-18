@@ -1,4 +1,4 @@
-from tic_tac_toe_game import (get_player_input, is_full_board, is_valid_input,
+from tic_tac_toe_game import (get_player_input, is_full_board,
                               is_winner, print_board, switch_player,
                               update_board)
 
